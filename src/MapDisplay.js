@@ -1,9 +1,31 @@
 import React, { Component } from 'react'
-import { Map, Marker } from 'google-maps-react'
+import { Map, Marker, InfoWindow } from 'google-maps-react'
 
 
 
 class MapContainer extends Component {
+
+  state = {
+    showingInfoWindow: false,
+    activeMarker: {},
+    selectedPlace: {},
+  };
+
+  onMarkerClick = (props, marker, e) =>
+    this.setState({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true
+    });
+
+  onMapClicked = (props) => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
+      })
+    }
+  };
 
 
 
@@ -26,7 +48,15 @@ class MapContainer extends Component {
               <Marker key={place.id} onClick={this.onMarkerClick}
                     name={place.name} position={place.position} description={place.description}/>
             ))
-          )}          
+          )}
+          <InfoWindow
+            marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}>
+              <div>
+                <h3>{this.state.selectedPlace.name}</h3>
+                <p>{this.state.selectedPlace.description}</p>
+              </div>
+          </InfoWindow>
         </Map>
       </div>
     )
