@@ -1,0 +1,37 @@
+[
+  {
+    "name": "I sleep here",
+    "id": "myHouse",
+    "position": {"lat": "53.704718", "lng": "-2.111315"},
+    "img": "./img/",
+    "description": "This is my house, I don't wear wigs."
+  },
+  {
+    "name": "I run here",
+    "id": "myPark",
+    "position": {"lat": "53.718359", "lng": "-2.104680"},
+    "img": "./img/",
+    "description": "This is my park, I don't like pigs."
+  },
+  {
+    "name": "I get drunk here",
+    "id": "myPub",
+    "position": {"lat": "53.705116", "lng": "-2.084508"},
+    "img": "./img/",
+    "description": "This is my pub, I don't play gigs."
+  },
+  {
+    "name": "I eat delicious vegan pizza here",
+    "id": "myPizzeria",
+    "position": {"lat": "53.711824", "lng": "-2.099469"},
+    "img": "./img/",
+    "description": "This is my grub, I don't eat twigs."
+  },
+  {
+    "name": "I walk my pooch round the lake here",
+    "id": "myLake",
+    "position": {"lat": "53.698344", "lng": "-2.081297"},
+    "img": "./img/",
+    "description": "This is my lake, I don't swim big."
+  }
+]
