@@ -1,37 +1,52 @@
 [
   {
-    "name": "I sleep here",
+    "name": "My Place",
     "id": "myHouse",
     "position": {"lat": "53.704718", "lng": "-2.111315"},
-    "img": "./img/",
-    "description": "This is my house, I don't wear wigs."
+    "img": "./img/places/myhouse.jpg",
+    "icon": "./img/icons/home.svg",
+    "description": "This is my house! I live here with my fiance, my puppy and my kitten."
   },
   {
-    "name": "I run here",
-    "id": "myPark",
-    "position": {"lat": "53.718359", "lng": "-2.104680"},
-    "img": "./img/",
-    "description": "This is my park, I don't like pigs."
+    "name": "My Favourite Pub",
+    "id": "4bc064bc2a89ef3b3271f088",
+    "position": {"lat": "53.70502860823035", "lng": "-2.0844109975595413"},
+    "icon": "./img/icons/pub.svg",
+    "description": "This is my favourite place to get a beer after a long hike!"
   },
   {
-    "name": "I get drunk here",
-    "id": "myPub",
-    "position": {"lat": "53.705116", "lng": "-2.084508"},
-    "img": "./img/",
-    "description": "This is my pub, I don't play gigs."
+    "name": "My Favourite Pizza Joint",
+    "id": "5b4b95585a2c91002c4e9ba1",
+    "position": {"lat": "53.711754", "lng": "-2.099576"},
+    "icon": "./img/icons/pizza.svg",
+    "description": "This place serves the best vegan thin crust!"
   },
   {
-    "name": "I eat delicious vegan pizza here",
-    "id": "myPizzeria",
-    "position": {"lat": "53.711824", "lng": "-2.099469"},
-    "img": "./img/",
-    "description": "This is my grub, I don't eat twigs."
+    "name": "My Puppy's Favourite Cafe",
+    "id": "52514f5911d270d482090e4d",
+    "position": {"lat": "53.712578", "lng": "-2.098287"},
+    "icon": "./img/icons/dog.svg",
+    "description": "Amazing coffee, great mediterranean food and a dog-friendly place to chill."
   },
   {
-    "name": "I walk my pooch round the lake here",
-    "id": "myLake",
-    "position": {"lat": "53.698344", "lng": "-2.081297"},
-    "img": "./img/",
-    "description": "This is my lake, I don't swim big."
+    "name": "My Kitten's Favourite Cafe",
+    "id": "5b40bf1f04d1ae002c4a7b17",
+    "position": {"lat": "53.713566", "lng": "-2.097576"},
+    "icon": "./img/icons/cat.svg",
+    "description": "Tasty vegan cakes, and the profits go to help rescue cats in need."
+  },
+  {
+    "name": "My Favourite Place to Run",
+    "id": "4c596e65aeb7b713b25773cd",
+    "position": {"lat": "53.71845047915771", "lng": "-2.1049118041992188"},
+    "icon": "./img/icons/run.jpg",
+    "description": "One lap of the park is exactly one mile - handy!"
+  },
+  {
+    "name": "My Favourite Swimming Spot",
+    "id": "4bffb0e0ca1920a16719ed81",
+    "position": {"lat": "53.698548", "lng": "-2.079717"},
+    "icon": "./img/icons/swim.jpg",
+    "description": "Only in the summer though, the water is freezing!"
   }
 ]
