@@ -1,0 +1,79 @@
+* {
+  font-family: "Roboto", sans-serif;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0; }
+
+.app-header {
+  margin: 0;
+  padding: 10px 15px;
+  background-color: grey;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 50px;
+  z-index: 999; }
+  .app-header h1 {
+    margin: 0;
+    text-align: center;
+    color: #fff;
+    font-weight: 200;
+    font-size: 24px; }
+
+.places-container {
+  margin-top: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 50px); }
+
+.list-container {
+  padding: 10px 15px;
+  width: 320px;
+  min-width: 275px;
+  text-align: center;
+  background-color: lightgrey; }
+  .list-container header {
+    padding: 10px 5px;
+    margin: 0; }
+    .list-container header h2 {
+      font-size: 18px;
+      margin: 0 0 15px 0; }
+    .list-container header select {
+      padding: 8px 12px;
+      border-radius: 3px;
+      font-size: 16px;
+      height: 40px;
+      width: 100%; }
+  .list-container .places-list {
+    list-style: none;
+    padding: 0;
+    width: 100%; }
+    .list-container .places-list li {
+      width: 100%;
+      padding: 5px; }
+      .list-container .places-list li button {
+        font-size: 16px;
+        height: 40px;
+        border-radius: 3px;
+        background-color: #fff;
+        border: 1px solid grey;
+        width: 100%;
+        padding: 8px 12px; }
+
+.map-container {
+  width: 90%;
+  min-width: 680px;
+  height: 100%;
+  position: relative; }
