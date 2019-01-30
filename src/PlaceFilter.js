@@ -7,7 +7,9 @@ class PlaceFilter extends Component {
   }
 
   render(){
+
     const { filter, tags } = this.props
+
     return (
         <form className="placeFilter">
           <label htmlFor="filterPlaces" className="sr-only">Filter places by tag:</label>

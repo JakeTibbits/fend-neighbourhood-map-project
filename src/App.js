@@ -12,10 +12,14 @@ class App extends Component {
   state = {
     places: [],
     showingPlaces: [],
-    filter: 'none',
-    mapState: {
-
-    }
+    availableFilters: [],
+    activeFilter: 'none',
+    infoState: {
+      selectedPlace: {},
+      activeMarker: {},
+      activeButton: {},
+      showingInfoWindow: false
+    },
   }
 
 
@@ -33,28 +37,47 @@ class App extends Component {
               anchor: new google.maps.Point(30,60),
               scaledSize: new google.maps.Size(55,55)
             }
-          })
+          }),
+          tags = this.getUniqueTags(places)
     this.setState({
       places,
-      showingPlaces: places
+      showingPlaces: places,
+      availableFilters: tags
     })
   }
 
-  updateMapState = (mapState) => {
-    console.log(mapState)
-    this.setState({mapState})
+  updateInfoState = (infoState) => {
+    if(infoState.selectedPlace){
+      if(!infoState.activeButton){
+        infoState.activeButton = this.getActivePlace('button', infoState.selectedPlace)
+      }
+      if(!infoState.activeMarker){
+        infoState.activeMarker = this.getActivePlace('marker', infoState.selectedPlace)
+      }
+    }
+    this.setState({infoState: infoState})
+    console.log(this.state.infoState)
   }
 
+  getActivePlace = (type, place) => {
+    if(type === 'button'){
 
-  changeFilter = (filter) => {
-    this.setState({filter})
-    if(filter === 'none'){
+      return {}
+    }
+    if(type === 'place'){
+      return {}
+    }
+  }
+
+  changeFilter = (activeFilter) => {
+    this.setState({activeFilter})
+    if(activeFilter === 'none'){
       this.setState((state) => ({
         showingPlaces: state.places
       }))
     } else {
       this.setState((state) => ({
-        showingPlaces: state.places.filter((place) => place.tags.indexOf(filter) >= 0)
+        showingPlaces: state.places.filter((place) => place.tags.indexOf(activeFilter) >= 0)
       }))
     }
   }
@@ -72,9 +95,8 @@ class App extends Component {
 
   render() {
 
-    const { places, showingPlaces, filter, activePlace, activeMarker, showInfoWindow } = this.state,
-          { google } = this.props,
-          tags = this.getUniqueTags(places)
+    const { places, showingPlaces, availableFilters, activeFilter, infoState } = this.state,
+          { google } = this.props
 
     return (
       <div className="App">
@@ -85,11 +107,11 @@ class App extends Component {
           <section className="list-container">
             <header>
               <h2>Check out my favourite places:</h2>
-              <PlaceFilter tags={tags} filter={filter} onChangeFilter={this.changeFilter}/>
+              <PlaceFilter tags={availableFilters} filter={activeFilter} onChangeFilter={this.changeFilter}/>
             </header>
-            <PlaceList places={showingPlaces} onChangeSelectedPlace={this.updateMapState} mapState={this.state.mapState}/>
+            <PlaceList places={showingPlaces} onPlaceClick={this.updateInfoState} infoState={infoState} />
           </section>
-          <PlaceMap google={google} places={showingPlaces} onChangeSelectedPlace={this.updateMapState} mapState={this.state.mapState}/>
+          <PlaceMap google={google} places={showingPlaces} onMarkerClick={this.updateInfoState} infoState={infoState}/>
         </div>
       </div>
     )

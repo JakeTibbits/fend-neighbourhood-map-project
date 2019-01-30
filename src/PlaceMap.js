@@ -11,21 +11,36 @@ class PlaceMap extends Component {
     showingInfoWindow: false
   }
 
+  componentDidMount(){
+    let infoState = this.props.infoState
+    this.setState({
+      activeMarker: infoState.activeMarker,
+      selectedPlace: infoState.selectedPlace,
+      showingInfoWindow: infoState.showingInfoWindow
+    })
+  }
+
   handleMarkerClick = (props, marker, e) => {
-    this.props.onChangeSelectedPlace({
+    this.props.onMarkerClick({
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true
     })
     this.setState({
-      activeMarker: this.props.mapState.activeMarker,
-      selectedPlace: this.props.mapState.selectedPlace,
-      showingInfoWindow: this.props.mapState.showingInfoWindow
+      activeMarker: this.props.infoState.activeMarker,
+      selectedPlace: this.props.infoState.selectedPlace,
+      showingInfoWindow: this.props.infoState.showingInfoWindow
     })
   }
 
   handleMapClick = (props) => {
     if (this.state.showingInfoWindow) {
+      this.props.onMarkerClick({
+        selectedPlace: {},
+        activeMarker: {},
+        activeButton: {},
+        showingInfoWindow: false
+      })
       this.setState({
         showingInfoWindow: false,
         activeMarker: null
@@ -65,6 +80,7 @@ class PlaceMap extends Component {
             places.map((place) => {
               return (
                 <Marker
+                  placeId={place.id}
                   key={place.id}
                   onClick={this.handleMarkerClick}
                   name={place.name}

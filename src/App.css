@@ -63,6 +63,8 @@
     .list-container .places-list li {
       width: 100%;
       padding: 5px; }
+      .list-container .places-list li.active {
+        background-color: pink; }
       .list-container .places-list li button {
         font-size: 16px;
         height: 40px;

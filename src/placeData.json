@@ -47,13 +47,5 @@
     "icon": "./img/icons/run.svg",
     "description": "One lap of the park is exactly one mile - handy!",
     "tags": ["Great Outdoors", "Pet Friendly"]
-  },
-  {
-    "name": "My Favourite Swimming Spot",
-    "id": "4bffb0e0ca1920a16719ed81",
-    "position": {"lat": 53.698548, "lng": -2.079717},
-    "icon": "./img/icons/swim.svg",
-    "description": "Only in the summer though, the water is freezing!",
-    "tags": ["Great Outdoors", "Pet Friendly"]
   }
 ]

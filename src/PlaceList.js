@@ -1,54 +1,36 @@
 import React, { Component } from 'react'
 
-class PlaceTab extends Component {
-  render(){
-    return (
-      <li>{ this.props.name }</li>
-    )
-  }
-}
-
 class PlaceList extends Component {
   state = {
-    activeMarker: null,
+    showingInfoWindow: false,
     selectedPlace: {},
-    showingInfoWindow: false
+    activeButton: {},
   }
 
+  handleClick = (li, place, isActive) => {
 
-  handleListClick = (props, marker, e) => {
-    this.props.onChangeSelectedPlace({
-      selectedPlace: props,
-      activeMarker: marker,
-      showingInfoWindow: true
-    })
-    this.setState({
-      activeMarker: this.props.mapState.activeMarker,
-      selectedPlace: this.props.mapState.selectedPlace,
-      showingInfoWindow: this.props.mapState.showingInfoWindow
-    })
   }
 
   render() {
 
-    const { places, filter, tags } = this.props
+    const { places, filter, tags, infoState } = this.props,
+          activeID = (infoState.selectedPlace ? infoState.selectedPlace.placeId : '')
 
     return (
         <ul className="places-list">
           {places.length && (
-            places.map((place, index) => {
+            places.map((place, index) =>{
+              let activeClass = (activeID === place.id ? "active" : "")
 
               return (
-              <PlaceTab
+              <li
                 key={place.id}
-                onClick={this.handleListClick}
-                name={place.name}
-                position={place.position}
-                description={place.description}
-                icon={place.icon}
-              />
-              )
-            })
+                onClick={(e) => this.handleClick(e.target, place)}
+                className={activeClass}
+              >
+                {place.name}
+              </li>
+            )})
           )}
 
         </ul>
