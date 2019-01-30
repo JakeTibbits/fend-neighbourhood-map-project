@@ -1,23 +1,30 @@
 import React, { Component } from 'react'
-import { Map, InfoWindow, Marker } from 'google-maps-react'
+import { Map, Marker, InfoWindow } from 'google-maps-react'
+import Place from './Place'
 
 
 class PlaceMap extends Component {
 
   state = {
-    showingInfoWindow: false,
-    activeMarker: {},
+    activeMarker: null,
     selectedPlace: {},
-  };
+    showingInfoWindow: false
+  }
 
-  onMarkerClick = (props, marker, e) =>
-    this.setState({
+  handleMarkerClick = (props, marker, e) => {
+    this.props.onChangeSelectedPlace({
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true
-    });
+    })
+    this.setState({
+      activeMarker: this.props.mapState.activeMarker,
+      selectedPlace: this.props.mapState.selectedPlace,
+      showingInfoWindow: this.props.mapState.showingInfoWindow
+    })
+  }
 
-  onMapClicked = (props) => {
+  handleMapClick = (props) => {
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
@@ -34,60 +41,53 @@ class PlaceMap extends Component {
             height: "100%"
           },
           center = {
-            lat: 53.707054,
-            lng: -2.095305
+            lat: 53.7124,
+            lng: -2.098
           },
-          {places, google} = this.props
+          {places, google} = this.props,
+          {showingInfoWindow, activeMarker, selectedPlace} = this.state
 
 
     return (
-      <div className="map-container">
+      <section className="map-container">
         <Map
           google={google}
           zoom={15}
           style={style}
           initialCenter={center}
-          onClick={this.onMapClicked}
-          disableDefaultUI="true"
+          onClick={this.handleMapClick}
+          disableDefaultUI={true}
           zoomControl={false}
           gestureHandling='none'
           mapType='rtoadmap'
         >
           {places.length && (
             places.map((place) => {
-
-              const icon = {
-                url: place.icon,
-                size: new google.maps.Size(60,60),
-                origin: new google.maps.Point(0,0),
-                anchor: new google.maps.Point(30,60),
-                scaledSize: new google.maps.Size(55,55)
-              }
-              //console.log(markerIcon)
               return (
                 <Marker
                   key={place.id}
-                  onClick={this.onMarkerClick}
+                  onClick={this.handleMarkerClick}
                   name={place.name}
                   position={place.position}
                   description={place.description}
-                  icon={icon}
+                  icon={place.icon}
                 />
               )
             })
           )}
 
           <InfoWindow
-            marker={this.state.activeMarker}
-            visible={this.state.showingInfoWindow}
-          >
+            marker={activeMarker}
+            visible={showingInfoWindow}>
             <div>
-              <h3>{this.state.selectedPlace.name}</h3>
-              <p>{this.state.selectedPlace.description}</p>
-            </div>
+                <h3>{selectedPlace.name}</h3>
+                <p>{selectedPlace.description}</p>
+
+              </div>
           </InfoWindow>
         </Map>
-      </div>
+
+      </section>
     )
   }
 }

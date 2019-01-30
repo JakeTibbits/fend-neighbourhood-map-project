@@ -1,11 +1,32 @@
 import React, { Component } from 'react'
-import Place from './Place'
 
+class PlaceTab extends Component {
+  render(){
+    return (
+      <li>{ this.props.name }</li>
+    )
+  }
+}
 
 class PlaceList extends Component {
+  state = {
+    activeMarker: null,
+    selectedPlace: {},
+    showingInfoWindow: false
+  }
 
-  handleFilterChange = (e) => {
-    this.props.onChangeFilter(e.target.value)
+
+  handleListClick = (props, marker, e) => {
+    this.props.onChangeSelectedPlace({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true
+    })
+    this.setState({
+      activeMarker: this.props.mapState.activeMarker,
+      selectedPlace: this.props.mapState.selectedPlace,
+      showingInfoWindow: this.props.mapState.showingInfoWindow
+    })
   }
 
   render() {
@@ -13,29 +34,24 @@ class PlaceList extends Component {
     const { places, filter, tags } = this.props
 
     return (
-      <section className="list-container">
-        <h2>Check out my favourite places:</h2>
-        <select value={(filter ? filter : "none")} onChange={this.handleFilterChange}>
-          <option vlaue="none">No Filter</option>
-          {
-            tags && (
-              tags.map((tag) => (
-                <option key={tag} value={tag}>{tag}</option>
-              ))
-            )
-          }
-        </select>
         <ul className="places-list">
           {places.length && (
-            places.map((place) => {
+            places.map((place, index) => {
+
               return (
-                <Place key={place.id} name={place.name} position={place.position} description={place.description} />
+              <PlaceTab
+                key={place.id}
+                onClick={this.handleListClick}
+                name={place.name}
+                position={place.position}
+                description={place.description}
+                icon={place.icon}
+              />
               )
             })
           )}
 
         </ul>
-      </section>
     )
   }
 }

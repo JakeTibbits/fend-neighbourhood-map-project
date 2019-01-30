@@ -2,30 +2,49 @@ import React, { Component } from 'react'
 import { GoogleApiWrapper } from 'google-maps-react'
 import PlaceMap from './PlaceMap'
 import PlaceList from './PlaceList'
-import myPlaces from './placeData'
+import PlaceFilter from './PlaceFilter'
+import places from './placeData'
 import './App.css'
 
 
 class App extends Component {
 
   state = {
-    places: myPlaces,
-    showingPlaces: myPlaces,
-    filter: 'none'
+    places: [],
+    showingPlaces: [],
+    filter: 'none',
+    mapState: {
+
+    }
   }
 
-  componentDidMount() {
-    /*fetch('https://api.foursquare.com/v2/venues/search?client_id=S125UCJJPAM2KA0S5GWSEKDJ2NBVRCJ2DKAFLUY1CCE3TXIL&client_secret=O2EZI5LSWXNBUU3SXDRWQ5FTDCFL1NX1QFEY3CXUJ15NLQHY&v=20180323&ll=53.705291,-2.099171&intent=browse&radius=50000&limit=50')
-      .then(result => result.json())
-      .then(data => data.response.venues)
-      .catch(() => {
-        console.log("api request failed")
-      })
-      .then((data)=>{
-        this.setState({places: data})
-        console.log(this.state.places)
-      })*/
+
+  componentDidMount(){
+    this.setInitialState()
   }
+
+  setInitialState(){
+    const google = this.props.google,
+          placesWithIcons = places.map((place) => {
+            place.icon = {
+              url: place.icon,
+              size: new google.maps.Size(60,60),
+              origin: new google.maps.Point(0,0),
+              anchor: new google.maps.Point(30,60),
+              scaledSize: new google.maps.Size(55,55)
+            }
+          })
+    this.setState({
+      places,
+      showingPlaces: places
+    })
+  }
+
+  updateMapState = (mapState) => {
+    console.log(mapState)
+    this.setState({mapState})
+  }
+
 
   changeFilter = (filter) => {
     this.setState({filter})
@@ -53,7 +72,8 @@ class App extends Component {
 
   render() {
 
-    const {places, showingPlaces, filter} = this.state,
+    const { places, showingPlaces, filter, activePlace, activeMarker, showInfoWindow } = this.state,
+          { google } = this.props,
           tags = this.getUniqueTags(places)
 
     return (
@@ -61,8 +81,16 @@ class App extends Component {
         <header className="app-header">
           <h1>Welcome to My Neighbourhood</h1>
         </header>
-        <PlaceList places={this.state.showingPlaces} onChangeFilter={this.changeFilter} tags={tags} filter={filter}/>
-        <PlaceMap google={this.props.google} places={this.state.showingPlaces}/>
+        <div className="places-container">
+          <section className="list-container">
+            <header>
+              <h2>Check out my favourite places:</h2>
+              <PlaceFilter tags={tags} filter={filter} onChangeFilter={this.changeFilter}/>
+            </header>
+            <PlaceList places={showingPlaces} onChangeSelectedPlace={this.updateMapState} mapState={this.state.mapState}/>
+          </section>
+          <PlaceMap google={google} places={showingPlaces} onChangeSelectedPlace={this.updateMapState} mapState={this.state.mapState}/>
+        </div>
       </div>
     )
   }
