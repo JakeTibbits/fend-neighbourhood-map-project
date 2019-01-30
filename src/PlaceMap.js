@@ -42,7 +42,7 @@ class PlaceMap extends Component {
             lat: 53.7124,
             lng: -2.098
           },
-          {places, google, infoState} = this.props,
+          {places, google, infoState, spoofClick} = this.props,
           {showingInfoWindow, activeMarker, selectedPlace} = this.props.infoState
 
 

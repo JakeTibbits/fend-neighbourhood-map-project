@@ -20,6 +20,7 @@ class App extends Component {
       activeButton: {},
       showingInfoWindow: false
     },
+    doingMarkerClick: false
   }
 
 
@@ -47,22 +48,13 @@ class App extends Component {
   }
 
   updateInfoState = (newInfoState) => {
-    console.log(newInfoState)
-    this.setState({ infoState: newInfoState }, () => {
-      console.log(this.state)
-    })
-
+    this.setState({ infoState: newInfoState })
   }
 
-  getActivePlace = (type, place) => {
-    if(type === 'button'){
-
-      return {}
-    }
-    if(type === 'place'){
-      return {}
-    }
+  doMarkerClick = (place) => {
+    this.setState({doingMarkerClick: place.id})
   }
+
 
   changeFilter = (activeFilter) => {
     this.setState({activeFilter})
@@ -90,7 +82,7 @@ class App extends Component {
 
   render() {
 
-    const { places, showingPlaces, availableFilters, activeFilter, infoState } = this.state,
+    const { places, showingPlaces, availableFilters, activeFilter, infoState, doingMarkerClick} = this.state,
           { google } = this.props
 
     return (
@@ -104,9 +96,9 @@ class App extends Component {
               <h2>Check out my favourite places:</h2>
               <PlaceFilter tags={availableFilters} filter={activeFilter} onChangeFilter={this.changeFilter}/>
             </header>
-            <PlaceList places={showingPlaces} onPlaceClick={this.updateInfoState} infoState={infoState} />
+            <PlaceList places={showingPlaces} onActivePlaceClick={this.updateInfoState} onInactivePlaceClick={this.doMarkerClick} infoState={infoState} />
           </section>
-          <PlaceMap google={google} places={showingPlaces} onMarkerClick={this.updateInfoState} infoState={infoState}/>
+          <PlaceMap google={google} places={showingPlaces} onMarkerClick={this.updateInfoState} infoState={infoState} spoofClick={doingMarkerClick}/>
         </div>
       </div>
     )
