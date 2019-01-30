@@ -42,7 +42,17 @@ class PlaceMap extends Component {
 
     return (
       <div className="map-container">
-        <Map google={google} zoom={15} style={style} initialCenter={center} onClick={this.onMapClicked} type="satellite">
+        <Map
+          google={google}
+          zoom={15}
+          style={style}
+          initialCenter={center}
+          onClick={this.onMapClicked}
+          disableDefaultUI="true"
+          zoomControl={false}
+          gestureHandling='none'
+          mapType='rtoadmap'
+        >
           {places.length && (
             places.map((place) => {
 
