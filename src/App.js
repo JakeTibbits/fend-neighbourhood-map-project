@@ -46,17 +46,12 @@ class App extends Component {
     })
   }
 
-  updateInfoState = (infoState) => {
-    if(infoState.selectedPlace){
-      if(!infoState.activeButton){
-        infoState.activeButton = this.getActivePlace('button', infoState.selectedPlace)
-      }
-      if(!infoState.activeMarker){
-        infoState.activeMarker = this.getActivePlace('marker', infoState.selectedPlace)
-      }
-    }
-    this.setState({infoState: infoState})
-    console.log(this.state.infoState)
+  updateInfoState = (newInfoState) => {
+    console.log(newInfoState)
+    this.setState({ infoState: newInfoState }, () => {
+      console.log(this.state)
+    })
+
   }
 
   getActivePlace = (type, place) => {

@@ -1,13 +1,24 @@
 import React, { Component } from 'react'
 
 class PlaceList extends Component {
-  state = {
-    showingInfoWindow: false,
-    selectedPlace: {},
-    activeButton: {},
-  }
 
   handleClick = (li, place, isActive) => {
+    let newProps = {}
+
+    if(li.className === "active"){
+      newProps.selectedPlace = {}
+      newProps.activeMarker = {}
+      newProps.activeButton = {}
+      newProps.showingInfoWindow = false
+    }
+
+    this.props.onPlaceClick({
+      selectedPlace: newProps.selectedPlace,
+      activeMarker: newProps.activeMarker,
+      showingInfoWindow: newProps.showingInfoWindow,
+      activeButton: newProps.activeButton
+    })
+
 
   }
 

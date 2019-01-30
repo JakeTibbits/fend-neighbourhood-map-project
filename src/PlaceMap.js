@@ -5,36 +5,19 @@ import Place from './Place'
 
 class PlaceMap extends Component {
 
-  state = {
-    activeMarker: null,
-    selectedPlace: {},
-    showingInfoWindow: false
-  }
-
-  componentDidMount(){
-    let infoState = this.props.infoState
-    this.setState({
-      activeMarker: infoState.activeMarker,
-      selectedPlace: infoState.selectedPlace,
-      showingInfoWindow: infoState.showingInfoWindow
-    })
-  }
-
   handleMarkerClick = (props, marker, e) => {
     this.props.onMarkerClick({
       selectedPlace: props,
       activeMarker: marker,
-      showingInfoWindow: true
+      showingInfoWindow: true,
+      activeButton: {}
     })
-    this.setState({
-      activeMarker: this.props.infoState.activeMarker,
-      selectedPlace: this.props.infoState.selectedPlace,
-      showingInfoWindow: this.props.infoState.showingInfoWindow
-    })
+
   }
 
+
   handleMapClick = (props) => {
-    if (this.state.showingInfoWindow) {
+    if (this.props.infoState.showingInfoWindow) {
       this.props.onMarkerClick({
         selectedPlace: {},
         activeMarker: {},
@@ -59,8 +42,8 @@ class PlaceMap extends Component {
             lat: 53.7124,
             lng: -2.098
           },
-          {places, google} = this.props,
-          {showingInfoWindow, activeMarker, selectedPlace} = this.state
+          {places, google, infoState} = this.props,
+          {showingInfoWindow, activeMarker, selectedPlace} = this.props.infoState
 
 
     return (
