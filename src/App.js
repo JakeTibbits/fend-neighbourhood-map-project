@@ -30,16 +30,17 @@ class App extends Component {
 
   setInitialState(){
     const google = this.props.google,
-          placesWithIcons = places.map((place) => {
-            place.icon = {
-              url: place.icon,
-              size: new google.maps.Size(60,60),
-              origin: new google.maps.Point(0,0),
-              anchor: new google.maps.Point(30,60),
-              scaledSize: new google.maps.Size(55,55)
-            }
-          }),
           tags = this.getUniqueTags(places)
+
+    for(let place of places){
+      place.icon = {
+        url: place.icon,
+        size: new google.maps.Size(60,60),
+        origin: new google.maps.Point(0,0),
+        anchor: new google.maps.Point(30,60),
+        scaledSize: new google.maps.Size(55,55)
+      }
+    }      
     this.setState({
       places,
       showingPlaces: places,
@@ -48,7 +49,7 @@ class App extends Component {
   }
 
   updateInfoState = (newInfoState) => {
-    this.setState({ infoState: newInfoState })
+    this.setState({ infoState: newInfoState, doingMarkerClick: false })
   }
 
   doMarkerClick = (place) => {
@@ -82,7 +83,8 @@ class App extends Component {
 
   render() {
 
-    const { places, showingPlaces, availableFilters, activeFilter, infoState, doingMarkerClick} = this.state,
+
+    const { showingPlaces, availableFilters, activeFilter, infoState, doingMarkerClick} = this.state,
           { google } = this.props
 
     return (

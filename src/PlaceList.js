@@ -18,7 +18,7 @@ class PlaceList extends Component {
 
   render() {
 
-    const { places, filter, tags, infoState } = this.props,
+    const { places, infoState } = this.props,
           activeID = (infoState.selectedPlace ? infoState.selectedPlace.placeId : '')
 
     return (

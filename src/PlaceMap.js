@@ -1,6 +1,19 @@
 import React, { Component } from 'react'
 import { Map, Marker, InfoWindow } from 'google-maps-react'
-import Place from './Place'
+
+
+export class SpoofableMarker extends Marker{
+  state = {
+    clicked: false
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.spoof !== prevProps.spoof){
+      this.props.onClick( this.props, this.marker )
+    }
+  }
+
+}
 
 
 class PlaceMap extends Component {
@@ -12,7 +25,6 @@ class PlaceMap extends Component {
       showingInfoWindow: true,
       activeButton: {}
     })
-
   }
 
 
@@ -29,7 +41,7 @@ class PlaceMap extends Component {
         activeMarker: null
       })
     }
-  };
+  }
 
 
   render() {
@@ -42,7 +54,7 @@ class PlaceMap extends Component {
             lat: 53.7124,
             lng: -2.098
           },
-          {places, google, infoState, spoofClick} = this.props,
+          {places, google, spoofClick} = this.props,
           {showingInfoWindow, activeMarker, selectedPlace} = this.props.infoState
 
 
@@ -57,12 +69,13 @@ class PlaceMap extends Component {
           disableDefaultUI={true}
           zoomControl={false}
           gestureHandling='none'
-          mapType='rtoadmap'
+          mapType='roadmap'
         >
           {places.length && (
             places.map((place) => {
               return (
-                <Marker
+                <SpoofableMarker
+                  spoof={(spoofClick === place.id)}
                   placeId={place.id}
                   key={place.id}
                   onClick={this.handleMarkerClick}
