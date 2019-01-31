@@ -27,6 +27,7 @@ class PlaceMap extends Component {
       showingInfoWindow: true,
       activeButton: {}
     })
+    console.log(e)
   }
 
 
@@ -71,6 +72,7 @@ class PlaceMap extends Component {
           zoomControl={true}
           bounds={llBounds}
           mapType='roadmap'
+          tabIndex="-1"
         >
           {places.length && (
             places.map((place) => {

@@ -2,11 +2,6 @@ import React, { Component } from 'react'
 
 class PlaceInfo extends Component {
 
-  state = {
-    image: {}
-  }
-
-
   render(){
 
     const { place } = this.props,
@@ -29,7 +24,6 @@ class PlaceInfo extends Component {
 
 
     if(place.frSq){
-      console.log(place.frSq)
       let address
       if(place.frSq.location.address){ address = <p><strong>Address: </strong>{place.frSq.location.address}</p> }
       return(

@@ -49,16 +49,26 @@ class App extends Component {
   setInitialState(){
 
     const google = this.props.google,
-          tags = this.getUniqueTags(places)
+          tags = this.getUniqueTags(places),
+          placesToMap = places.filter((place)=>{
+            if(place.id === "myHouse"){
+              return false
+            }
+            return true
+          })
+          console.log(placesToMap)
 
-    const placeUrls = places.map((place) => ('//api.foursquare.com/v2/venues/'+place.id+'?v=20190101&client_id=S125UCJJPAM2KA0S5GWSEKDJ2NBVRCJ2DKAFLUY1CCE3TXIL&client_secret=O2EZI5LSWXNBUU3SXDRWQ5FTDCFL1NX1QFEY3CXUJ15NLQHY'))
+    const placeUrls = placesToMap.map((place) => ('//api.foursquare.com/v2/venues/'+place.id+'?v=20190101&client_id=S125UCJJPAM2KA0S5GWSEKDJ2NBVRCJ2DKAFLUY1CCE3TXIL&client_secret=O2EZI5LSWXNBUU3SXDRWQ5FTDCFL1NX1QFEY3CXUJ15NLQHY'))
 
     Promise.all(placeUrls.map( url =>
       fetch(url)
-        .then(res => { if(!res.ok){ throw Error(res.status+": No foursquare data found for "+res.url)} return res})
+        .then(res => { if(!res.ok){ throw Error(res.status); } return res})
         .then(res => { return res.json() })
         .then((data) => (data.response))
-        .catch((e) => { console.log(e)})
+        .catch((e) => {
+          if (e == 'Error: 429'){ this.setState({apiMaxed: true}); console.log(e+": Your App has exceeded the maximum allowed calls to FourSquareAPI, please try again later")}
+          else if(e == 'Error: 400'){ this.setState({apiDead: true}); console.log(e+": FourSquare API is unreachable at this time, please try again later")}
+      })
     )).then(venues => {
       for(let venue of venues){
         if(venue){
@@ -128,7 +138,7 @@ class App extends Component {
 
   render() {
 
-    const { showingPlaces, availableFilters, activeFilter, infoState, doingMarkerClick, mapState} = this.state,
+    const { showingPlaces, availableFilters, activeFilter, infoState, doingMarkerClick, mapState, apiMaxed} = this.state,
           { google } = this.props
 
     return (
@@ -144,7 +154,12 @@ class App extends Component {
             </header>
             <PlaceList places={showingPlaces} onActivePlaceClick={this.updateInfoState} onInactivePlaceClick={this.doMarkerClick} infoState={infoState} />
             <footer>
+              <p>Map functionality provided by <a href="https://developers.google.com/maps/documentation/javascript/tutorial">GoogleMaps Javascript API</a></p>
               <p>Additional location data and images served by <a href="https://foursquare.com/developers/apps">FourSquare</a>.</p>
+              { apiMaxed &&(
+                <p className="api-error"><strong>API Maxed Out: </strong>Please be aware that additional data and images from FourSquare are currently as the app has exceeded the free daily call allowance. Please try again later.</p>
+              )}
+
             </footer>
           </section>
           <PlaceMap google={google} places={showingPlaces} onMarkerClick={this.updateInfoState} infoState={infoState} spoofClick={doingMarkerClick} mapState={mapState}/>
