@@ -59,7 +59,7 @@ class App extends Component {
           })
 
     //Map an array of urls to make requests to FourSquare API
-    const placeUrls = placesToMap.map((place) => ('//api.foursquare.com/v2/venues/'+place.id+'?v=20190101&client_id=S125UCJJPAM2KA0S5GWSEKDJ2NBVRCJ2DKAFLUY1CCE3TXIL&client_secret=O2EZI5LSWXNBUU3SXDRWQ5FTDCFL1NX1QFEY3CXUJ15NLQHY'))
+    const placeUrls = placesToMap.map((place) => ('//api.foursquare.com/v2/venues/'+place.id+'?v=20190101&client_id=S125UCJJPAM2KA0S5GWSEKDJ2NBVRCJ2DKAFLUY1CCE3TXIL&client_secret=JBBEO14GYPAZTADO3W42SFPRKLKWHAWAYJZL0MBGAHYCR5OE'))
     //fetch all of the urls
     Promise.all(placeUrls.map( url =>
       fetch(url)
@@ -159,9 +159,9 @@ class App extends Component {
             <PlaceList places={showingPlaces} onActivePlaceClick={this.updateInfoState} onInactivePlaceClick={this.doMarkerClick} infoState={infoState} />
             <footer>
               <p>Map functionality provided by <a href="https://developers.google.com/maps/documentation/javascript/tutorial">GoogleMaps Javascript API</a></p>
-              <p>Additional location data and images served by <a href="https://foursquare.com/developers/apps">FourSquare</a>.</p>
+              <p>Additional location data and images <a href="https://foursquare.com/developers/apps">powered by FourSquare</a>.</p>
               { apiMaxed &&(
-                <p className="api-error"><strong>API Maxed Out: </strong>Please be aware that additional data and images from FourSquare are currently as the app has exceeded the free daily call allowance. Please try again later.</p>
+                <p className="api-error"><strong>API Maxed Out: </strong>Please be aware that additional data and images from FourSquare are currently unavailable as the app has exceeded the free daily call allowance. Please try again later.</p>
               )}
 
             </footer>

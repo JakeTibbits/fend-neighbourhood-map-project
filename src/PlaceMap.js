@@ -10,7 +10,6 @@ export class SpoofableMarker extends Marker{
 
   componentDidUpdate(prevProps) {
     if (this.props.spoof !== prevProps.spoof){
-      this.
       this.props.onClick( this.props, this.marker )
     }
   }
