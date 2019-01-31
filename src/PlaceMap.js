@@ -73,6 +73,7 @@ class PlaceMap extends Component {
           //gestureHandling='none'
           mapType='roadmap'
         >
+        <h2 className="sr-only">Neighbourhood Map</h2>
           {places.length && (
             places.map((place) => {
               return (
@@ -83,6 +84,7 @@ class PlaceMap extends Component {
                   placeId={place.id}
                   key={place.id}
                   onClick={this.handleMarkerClick}
+                  onKeyPress={this.handleMarkerClick}
                   name={place.name}
                   position={place.position}
                   description={place.description}

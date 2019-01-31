@@ -26,12 +26,16 @@ class PlaceList extends Component {
           {places.length && (
             places.map((place, index) =>{
               let activeClass = (activeID === place.id ? "active" : "")
-
               return (
               <li
                 key={place.id}
+                style={{backgroundImage: `url(${place.icon.url})`}}
                 onClick={(e) => this.handleClick(e.target, place)}
+                onKeyPress={(e) => this.handleClick(e.target, place)}
                 className={activeClass}
+                tabIndex="0"
+                role="button"
+                aria-label={`Go to ${place.name}`}
               >
                 {place.name}
               </li>
@@ -39,6 +43,7 @@ class PlaceList extends Component {
           )}
 
         </ul>
+
     )
   }
 }
