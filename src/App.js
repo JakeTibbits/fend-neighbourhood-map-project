@@ -43,6 +43,7 @@ class App extends Component {
 
 
   componentDidMount(){
+    //get data from our placeData.json and append returned data from API
     this.setInitialState()
   }
 
@@ -56,10 +57,10 @@ class App extends Component {
             }
             return true
           })
-          console.log(placesToMap)
 
+    //Map an array of urls to make requests to FourSquare API
     const placeUrls = placesToMap.map((place) => ('//api.foursquare.com/v2/venues/'+place.id+'?v=20190101&client_id=S125UCJJPAM2KA0S5GWSEKDJ2NBVRCJ2DKAFLUY1CCE3TXIL&client_secret=O2EZI5LSWXNBUU3SXDRWQ5FTDCFL1NX1QFEY3CXUJ15NLQHY'))
-
+    //fetch all of the urls
     Promise.all(placeUrls.map( url =>
       fetch(url)
         .then(res => { if(!res.ok){ throw Error(res.status); } return res})
@@ -70,6 +71,7 @@ class App extends Component {
           else if(e == 'Error: 400'){ this.setState({apiDead: true}); console.log(e+": FourSquare API is unreachable at this time, please try again later")}
       })
     )).then(venues => {
+      //store returned venue data in a property
       for(let venue of venues){
         if(venue){
           for(let place of places){
@@ -79,6 +81,7 @@ class App extends Component {
           }
         }
       }
+      //convert icon image uri to google maps Icon object
       for(let place of places){
         place.icon = {
           url: place.icon,
@@ -88,8 +91,10 @@ class App extends Component {
           scaledSize: new google.maps.Size(55,55)
         }
       }
+
       return places
     }).then((places => {
+
       this.setState({
         places: places,
         showingPlaces: places,
@@ -97,9 +102,6 @@ class App extends Component {
       })
 
     }))
-
-
-
   }
 
 
@@ -107,6 +109,7 @@ class App extends Component {
     this.setState({ infoState: newInfoState, doingMarkerClick: false })
   }
 
+  //Spoof a click on the relevant map marker when a list item is clicked
   doMarkerClick = (place) => {
     this.setState({doingMarkerClick: place.id})
   }
@@ -125,6 +128,7 @@ class App extends Component {
     }
   }
 
+  //get an array of unique tags to be used as filters
   getUniqueTags = (places) => {
     const allArrays = places.map((place) => (place.tags))
     let allTags = []

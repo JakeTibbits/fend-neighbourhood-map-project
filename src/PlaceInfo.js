@@ -8,21 +8,25 @@ class PlaceInfo extends Component {
           imageStyle = {maxWidth: '300px'}
 
     let placeImg
+    //if place has its own image locally
     if(place.img){
       placeImg = <img src={place.img} alt={place.name} style={imageStyle}/>
     }
+    // else if place has foursquare image available
     else if(place.frSq && place.frSq.bestPhoto){
 
       const {prefix, suffix} = place.frSq.bestPhoto,
             imgUrl = prefix+"cap300"+suffix
 
       placeImg = <img src={imgUrl} alt={place.name + " by "+place.frSq.bestPhoto.source.name} style={imageStyle}/>
-    } else {
-
+    }
+    //else if place has no image
+    else {
+      placeImg = <p className="missing-image">No Images Found</p>
     }
 
 
-
+    //if place has foursquare data available
     if(place.frSq){
       let address
       if(place.frSq.location.address){ address = <p><strong>Address: </strong>{place.frSq.location.address}</p> }
@@ -38,6 +42,7 @@ class PlaceInfo extends Component {
       )
 
     }
+    //if no foursquare data available
     else {
       return(
         <div className="placeInfo">

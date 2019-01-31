@@ -10,6 +10,7 @@ export class SpoofableMarker extends Marker{
 
   componentDidUpdate(prevProps) {
     if (this.props.spoof !== prevProps.spoof){
+      this.
       this.props.onClick( this.props, this.marker )
     }
   }
@@ -19,7 +20,7 @@ export class SpoofableMarker extends Marker{
 
 class PlaceMap extends Component {
 
-
+  //set state and show infoWindow on marker click
   handleMarkerClick = (props, marker, e) => {
     this.props.onMarkerClick({
       selectedPlace: props,
@@ -27,10 +28,10 @@ class PlaceMap extends Component {
       showingInfoWindow: true,
       activeButton: {}
     })
-    console.log(e)
+
   }
 
-
+  //close infoWindow when clicking outside the window
   handleMapClick = (props) => {
     if (this.props.infoState.showingInfoWindow) {
       this.props.onMarkerClick({
@@ -54,7 +55,6 @@ class PlaceMap extends Component {
           { showingInfoWindow, activeMarker, selectedPlace } = this.props.infoState,
 
           llBounds = new google.maps.LatLngBounds()
-
           llBounds.extend({lat: bounds.north, lng: bounds.west})
           llBounds.extend({lat: bounds.south, lng: bounds.east})
 
