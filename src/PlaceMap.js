@@ -3,7 +3,7 @@ import { Map, Marker, InfoWindow } from 'google-maps-react'
 import PlaceInfo from './PlaceInfo'
 
 
-export class SpoofableMarker extends Marker{
+export class MyMarker extends Marker{
   state = {
     clicked: false
   }
@@ -57,7 +57,6 @@ class PlaceMap extends Component {
           llBounds.extend({lat: bounds.north, lng: bounds.west})
           llBounds.extend({lat: bounds.south, lng: bounds.east})
 
-
     return (
       <section className="map-container">
       <h2 className="sr-only">Neighbourhood Map</h2>
@@ -72,11 +71,12 @@ class PlaceMap extends Component {
           bounds={llBounds}
           mapType='roadmap'
           tabIndex="-1"
+          onLoad={()=>{console.log('load')}}
         >
           {places.length && (
             places.map((place) => {
               return (
-                <SpoofableMarker
+                <MyMarker
                   spoof={(spoofClick === place.id)}
                   frSq={place.frSqData}
                   img={place.img}

@@ -22,7 +22,7 @@ class PlaceInfo extends Component {
     }
     //else if place has no image
     else {
-      placeImg = <p className="missing-image">No Images Found</p>
+      placeImg = <p><img src="./img/places/no-image-icon-6.png" width="200" alt={place.name + " image not found"} style={imageStyle}/><br />No image found.</p>
     }
 
 

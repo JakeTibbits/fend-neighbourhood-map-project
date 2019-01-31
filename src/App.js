@@ -167,8 +167,7 @@ class App extends Component {
             </footer>
           </section>
           <PlaceMap google={google} places={showingPlaces} onMarkerClick={this.updateInfoState} infoState={infoState} spoofClick={doingMarkerClick} mapState={mapState}/>
-
-      </div>
+        </div>
       </div>
     )
   }
