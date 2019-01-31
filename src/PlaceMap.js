@@ -60,6 +60,7 @@ class PlaceMap extends Component {
 
     return (
       <section className="map-container">
+      <h2 className="sr-only">Neighbourhood Map</h2>
         <Map
           google={google}
           zoom={zoom}
@@ -69,11 +70,8 @@ class PlaceMap extends Component {
           disableDefaultUI={true}
           zoomControl={true}
           bounds={llBounds}
-          strictBounds={true}
-          //gestureHandling='none'
           mapType='roadmap'
         >
-        <h2 className="sr-only">Neighbourhood Map</h2>
           {places.length && (
             places.map((place) => {
               return (

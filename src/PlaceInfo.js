@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 
 class PlaceInfo extends Component {
 
+  state = {
+    image: {}
+  }
+
 
   render(){
 

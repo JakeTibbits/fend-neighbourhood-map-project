@@ -17,7 +17,7 @@ class PlaceFilter extends Component {
             <option value="none">Filter Places</option>
             {
               tags && (
-                tags.map((tag) => (
+                tags.map((tag) => ( 
                   <option key={tag} value={tag}>{tag}</option>
                 ))
               )

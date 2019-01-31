@@ -29,6 +29,9 @@
     color: #fff;
     font-weight: 200;
     font-size: 24px; }
+    @media screen and (max-width: 680px) {
+      .app-header h1 {
+        font-size: 20px; } }
 
 .places-container {
   margin-top: 50px;
@@ -37,6 +40,12 @@
   display: flex;
   width: 100%;
   height: calc(100vh - 50px); }
+  @media screen and (max-width: 990px) {
+    .places-container {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column; } }
 
 .list-container {
   padding: 10px 15px;
@@ -44,6 +53,17 @@
   min-width: 275px;
   text-align: left;
   background-color: lightgrey; }
+  @media screen and (max-width: 990px) {
+    .list-container {
+      width: 100%;
+      height: 50%;
+      -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+      order: 2;
+      overflow: scroll; } }
+  @media screen and (max-width: 680px) {
+    .list-container {
+      height: auto; } }
   .list-container header {
     padding: 10px 5px 20px;
     margin: 0; }
@@ -89,3 +109,13 @@
   min-width: 680px;
   height: 100%;
   position: relative; }
+  @media screen and (max-width: 990px) {
+    .map-container {
+      width: 100%;
+      -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+      order: 1; } }
+  @media screen and (max-width: 680px) {
+    .map-container {
+      min-width: 0;
+      height: 40%; } }
