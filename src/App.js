@@ -20,7 +20,25 @@ class App extends Component {
       activeButton: {},
       showingInfoWindow: false
     },
-    doingMarkerClick: false
+    doingMarkerClick: false,
+    mapState: {
+      style: {
+              width: "100%",
+              height: "100%"
+            },
+      center: {
+              lat: 53.7124,
+              lng: -2.098
+            },
+      zoom: 15,
+      bounds: {
+        north: 53.721651,
+        south: 53.703454,
+        west: -2.112836,
+        east: -2.081693
+      }
+
+    }
   }
 
 
@@ -29,24 +47,51 @@ class App extends Component {
   }
 
   setInitialState(){
+
     const google = this.props.google,
           tags = this.getUniqueTags(places)
 
-    for(let place of places){
-      place.icon = {
-        url: place.icon,
-        size: new google.maps.Size(60,60),
-        origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(30,60),
-        scaledSize: new google.maps.Size(55,55)
+    const placeUrls = places.map((place) => ('//api.foursquare.com/v2/venues/'+place.id+'?v=20190101&client_id=S125UCJJPAM2KA0S5GWSEKDJ2NBVRCJ2DKAFLUY1CCE3TXIL&client_secret=O2EZI5LSWXNBUU3SXDRWQ5FTDCFL1NX1QFEY3CXUJ15NLQHY'))
+
+    Promise.all(placeUrls.map( url =>
+      fetch(url)
+        .then(res => { if(!res.ok){ throw Error(res.status+": No foursquare data found for "+res.url)} return res})
+        .then(res => { return res.json() })
+        .then((data) => (data.response))
+        .catch((e) => { console.log(e)})
+    )).then(venues => {
+      for(let venue of venues){
+        if(venue){
+          for(let place of places){
+            if(place.id === venue.venue.id) {
+              place.frSqData = venue.venue
+            }
+          }
+        }
       }
-    }      
-    this.setState({
-      places,
-      showingPlaces: places,
-      availableFilters: tags
-    })
+      for(let place of places){
+        place.icon = {
+          url: place.icon,
+          size: new google.maps.Size(60,60),
+          origin: new google.maps.Point(0,0),
+          anchor: new google.maps.Point(30,60),
+          scaledSize: new google.maps.Size(55,55)
+        }
+      }
+      return places
+    }).then((places => {
+      this.setState({
+        places: places,
+        showingPlaces: places,
+        availableFilters: tags
+      })
+
+    }))
+
+
+
   }
+
 
   updateInfoState = (newInfoState) => {
     this.setState({ infoState: newInfoState, doingMarkerClick: false })
@@ -83,8 +128,7 @@ class App extends Component {
 
   render() {
 
-
-    const { showingPlaces, availableFilters, activeFilter, infoState, doingMarkerClick} = this.state,
+    const { showingPlaces, availableFilters, activeFilter, infoState, doingMarkerClick, mapState} = this.state,
           { google } = this.props
 
     return (
@@ -100,7 +144,7 @@ class App extends Component {
             </header>
             <PlaceList places={showingPlaces} onActivePlaceClick={this.updateInfoState} onInactivePlaceClick={this.doMarkerClick} infoState={infoState} />
           </section>
-          <PlaceMap google={google} places={showingPlaces} onMarkerClick={this.updateInfoState} infoState={infoState} spoofClick={doingMarkerClick}/>
+          <PlaceMap google={google} places={showingPlaces} onMarkerClick={this.updateInfoState} infoState={infoState} spoofClick={doingMarkerClick} mapState={mapState}/>
         </div>
       </div>
     )

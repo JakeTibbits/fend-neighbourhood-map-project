@@ -20,6 +20,7 @@
     "name": "My Favourite Pizza Joint",
     "id": "5b4b95585a2c91002c4e9ba1",
     "position": {"lat": 53.711754, "lng": -2.099576},
+    "img": "./img/places/site-pizzeria.jpg",
     "icon": "./img/icons/pizza.svg",
     "description": "This place serves the best vegan thin crust!",
     "tags": ["Good Food", "Vegan Food", "Alcohol Served"]
@@ -36,6 +37,7 @@
     "name": "My Kitten's Favourite Café",
     "id": "5b40bf1f04d1ae002c4a7b17",
     "position": {"lat": 53.713566, "lng": -2.097576},
+    "img": "./img/places/meow-cafe.jpg",
     "icon": "./img/icons/cat.svg",
     "description": "Tasty vegan cakes, and the profits go to help rescue cats in need.",
     "tags": ["Good Food", "Vegan Food", "Good Coffee"]

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Map, Marker, InfoWindow } from 'google-maps-react'
+import PlaceInfo from './PlaceInfo'
 
 
 export class SpoofableMarker extends Marker{
@@ -17,6 +18,7 @@ export class SpoofableMarker extends Marker{
 
 
 class PlaceMap extends Component {
+
 
   handleMarkerClick = (props, marker, e) => {
     this.props.onMarkerClick({
@@ -46,29 +48,29 @@ class PlaceMap extends Component {
 
   render() {
 
-    const style = {
-            width: "100%",
-            height: "100%"
-          },
-          center = {
-            lat: 53.7124,
-            lng: -2.098
-          },
-          {places, google, spoofClick} = this.props,
-          {showingInfoWindow, activeMarker, selectedPlace} = this.props.infoState
+    const { places, google, spoofClick } = this.props,
+          { style, zoom, center, bounds } = this.props.mapState,
+          { showingInfoWindow, activeMarker, selectedPlace } = this.props.infoState,
+
+          llBounds = new google.maps.LatLngBounds()
+
+          llBounds.extend({lat: bounds.north, lng: bounds.west})
+          llBounds.extend({lat: bounds.south, lng: bounds.east})
 
 
     return (
       <section className="map-container">
         <Map
           google={google}
-          zoom={15}
+          zoom={zoom}
           style={style}
           initialCenter={center}
           onClick={this.handleMapClick}
           disableDefaultUI={true}
-          zoomControl={false}
-          gestureHandling='none'
+          zoomControl={true}
+          bounds={llBounds}
+          strictBounds={true}
+          //gestureHandling='none'
           mapType='roadmap'
         >
           {places.length && (
@@ -76,6 +78,8 @@ class PlaceMap extends Component {
               return (
                 <SpoofableMarker
                   spoof={(spoofClick === place.id)}
+                  frSq={place.frSqData}
+                  img={place.img}
                   placeId={place.id}
                   key={place.id}
                   onClick={this.handleMarkerClick}
@@ -90,12 +94,9 @@ class PlaceMap extends Component {
 
           <InfoWindow
             marker={activeMarker}
-            visible={showingInfoWindow}>
-            <div>
-                <h3>{selectedPlace.name}</h3>
-                <p>{selectedPlace.description}</p>
-
-              </div>
+            visible={showingInfoWindow}
+          >
+            <PlaceInfo place={selectedPlace} />
           </InfoWindow>
         </Map>
 
