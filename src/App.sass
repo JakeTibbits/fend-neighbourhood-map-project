@@ -39,11 +39,11 @@
   padding: 10px 15px
   width: 320px
   min-width: 275px
-  text-align: center
+  text-align: left
   background-color: lightgrey
 
   header
-    padding: 10px 5px
+    padding: 10px 5px 20px
     margin: 0
     h2
       font-size: 18px
@@ -54,7 +54,9 @@
       font-size: 16px
       height: 40px
       width: 100%
-
+  footer
+    padding: 30px 5px 10px
+    font-size: 12px
   .places-list
     list-style: none
     padding: 0
@@ -62,16 +64,18 @@
     li
       width: 100%
       padding: 5px
+      height: 45px
+      padding-left: 50px
+      transition: transform 300ms ease-in-out
+      cursor: pointer
+      background:
+        repeat: no-repeat
+        position: left top
+        size: 40px
+      &:hover, &:focus, &:active
+        transform: translateY(-3px)
       &.active
         background-color: pink
-      button
-        font-size: 16px
-        height: 40px
-        border-radius: 3px
-        background-color: #fff
-        border: 1px solid grey
-        width: 100%
-        padding: 8px 12px
 
 
 

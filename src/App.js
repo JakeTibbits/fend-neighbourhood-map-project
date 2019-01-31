@@ -143,9 +143,13 @@ class App extends Component {
               <PlaceFilter tags={availableFilters} filter={activeFilter} onChangeFilter={this.changeFilter}/>
             </header>
             <PlaceList places={showingPlaces} onActivePlaceClick={this.updateInfoState} onInactivePlaceClick={this.doMarkerClick} infoState={infoState} />
+            <footer>
+              <p>Additional location data and images served by <a href="https://foursquare.com/developers/apps">FourSquare</a>.</p>
+            </footer>
           </section>
           <PlaceMap google={google} places={showingPlaces} onMarkerClick={this.updateInfoState} infoState={infoState} spoofClick={doingMarkerClick} mapState={mapState}/>
-        </div>
+
+      </div>
       </div>
     )
   }

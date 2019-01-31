@@ -42,10 +42,10 @@
   padding: 10px 15px;
   width: 320px;
   min-width: 275px;
-  text-align: center;
+  text-align: left;
   background-color: lightgrey; }
   .list-container header {
-    padding: 10px 5px;
+    padding: 10px 5px 20px;
     margin: 0; }
     .list-container header h2 {
       font-size: 18px;
@@ -56,23 +56,33 @@
       font-size: 16px;
       height: 40px;
       width: 100%; }
+  .list-container footer {
+    padding: 30px 5px 10px;
+    font-size: 12px; }
   .list-container .places-list {
     list-style: none;
     padding: 0;
     width: 100%; }
     .list-container .places-list li {
       width: 100%;
-      padding: 5px; }
+      padding: 5px;
+      height: 45px;
+      padding-left: 50px;
+      -webkit-transition: -webkit-transform 300ms ease-in-out;
+      transition: -webkit-transform 300ms ease-in-out;
+      -o-transition: transform 300ms ease-in-out;
+      transition: transform 300ms ease-in-out;
+      transition: transform 300ms ease-in-out, -webkit-transform 300ms ease-in-out;
+      cursor: pointer;
+      background-repeat: no-repeat;
+      background-position: left top;
+      background-size: 40px; }
+      .list-container .places-list li:hover, .list-container .places-list li:focus, .list-container .places-list li:active {
+        -webkit-transform: translateY(-3px);
+        -ms-transform: translateY(-3px);
+        transform: translateY(-3px); }
       .list-container .places-list li.active {
         background-color: pink; }
-      .list-container .places-list li button {
-        font-size: 16px;
-        height: 40px;
-        border-radius: 3px;
-        background-color: #fff;
-        border: 1px solid grey;
-        width: 100%;
-        padding: 8px 12px; }
 
 .map-container {
   width: 90%;
